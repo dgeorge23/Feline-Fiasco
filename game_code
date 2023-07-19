@@ -1,316 +1,294 @@
 import pygame
+import sys
 
-from pygame.locals import *
-
+# initialize
 pygame.init()
 
-
-def start():
-    width, height = 1500, 1042
-
-    screen = pygame.display.set_mode((width, height))
-    # background
-    image = pygame.image.load("GamePage.png")
-    image_rect = image.get_rect()
-
-    image_rect.center = (width // 2, height // 2)
-
-    running = True
-
-    while running:
-
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                running = False
-
-        screen.fill((0, 0, 0))  # Clear the screen
-
-        screen.blit(image, image_rect)  # Blit the image onto the screen
-
-        pygame.display.flip()  # Update the display
-
-    pygame.quit()
-
-
-    # insert cover page here
-
-    print("\nWelcome to Feline Fiasco!\n"
-          "Your goal is to escape the pet store\n"
-          "and make choices from there to determine your new life.\n"
-          "Make good choices and good luck!\n")
-
-    # switch to pet store background
-    user = input("Type 'steal' to take the key to your cage from the store owner: ")
-
-    while user != 'steal':
-        user = input("Type 'steal' to take the key to your cage from the store owner: ")
-        if user == 'steal':
-            print("success")
-            # pygame.image.load(steal)
-            # play cat paw stealing animation
-            # switch to black cat in cage screen
-
-    user = input("Now type 'open' to use the key and unlock your cage: ")
-
-    while user != 'open':
-        user = input("Now type 'open' to use the key and unlock your cage: ")
-        # (black background) (play door unlock sound with anim) (cat paw animation unlocking cage door )
-        # (Background of a black cat in a cage with an unlocked door )
-
-    # choose front door recap 1 vent 2 backdoor die 3
-
-    x = float(input("You now must chose which way to escape!\n"
-                    "1. Backdoor\n"
-                    "2. Vent\n"
-                    "3. Frontdoor\n"
-                    "Your choice: "))
-
-    if x == 1:  # Backdoor
-        # (cuts to  Background of an alleyway with the alley cat telling Miso that he shouldn’t have come out here)
-        # Leads to getting mauled by back alley cat (play scratch animation) (play scratch sound with anim)
-        # (Immediate loss (cut to game over screen ) )
-        choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
-                                      "Would you like to restart?\n"
-                                      "1. Yes\n"
-                                      "2. No\n"
-                                      "Your choice: "))
-        # restart option
-        if choice_to_start == 1:
-            start()
-        else:
-            return
-
-    if x == 3:  # Frontdoor
-        # ( Cut to Background of a pet store with
-        # the pet store owner yelling at Miso telling him to get back in his cage)
-        # (play grabbing hand animation)(play whoosh sound with anim)
-        # Caught by pet store owner ( Relocated to cage (restart) )
-        choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
-                                      "Would you like to restart?\n"
-                                      "1. Yes\n"
-                                      "2. No\n"
-                                      "Your choice: "))
-        # restart option
-        if choice_to_start == 1:
-            start()
-        else:
-            return
-
-    if x == 2:  # Vent
-        # Progress further ( cut to background of black cat in tunnel )
-        # (play metal stepping sounds with pic) cuts to (background outside the pet store) (cue birds chirping)
-
-        x = float(input("You have escaped! You have two options to choose:\n"
-                        "1. Get on the train\n"
-                        "2. Cross the street\n"
-                        "Your choice: "))
-
-        # choice: train 1 street 2
-
-        if x == 2:  # Street
-            # Play car driving and boom animation into cat (Play car crash audio with anim)
-            choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
-                                          "Would you like to restart?\n"
-                                          "1. Yes\n"
-                                          "2. No\n"
-                                          "Your choice: "))
-
-            if choice_to_start == 1:    # restart
-
-                start()
-
-            else:   # end
-
-                return
-
-        if x == 1:  # Train
-            # (Train chugging animation) (play train horn with anim)
-            x = float(input("The train has stopped at a station and you get off.\n"
-                            "You can now exit the subway or explore the platform:\n"
-                            "1. Exit the subway to the city\n"
-                            "2. Explore the platform\n"
-                            "Your choice: "))
-
-            # choice exit 1 explore 2
-
-            if x == 2:  # Explore
-                # Slips on banana peel and falls into tracks
-                # (play cat slipping on banana peel anim (play slipping on peel noise)
-                # and falling down anim (falling down noise) ) electrocuted (play electrocution noise)
-                choice_to_start = float(input("You slipped on a banana peel and fell into the tracks.\n"
-                                              "You were electrocuted and died.\n"
-                                              "Would you like to restart?\n"
-                                              "1. Yes\n"
-                                              "2. No\n"
-                                              "Your choice: "))
-
-                if choice_to_start == 1:    # restart option
-
-                    start()
-
-                else:
-
-                    return
-
-            if x == 1:  # Exit
-                # ( play cat walking upstairs anim ) ( stepping noises with anim)
-                x = float(input("It is storming outside. Seek shelter:\n"
-                                "1. Under a tree\n"
-                                "2. In a box\n"
-                                "3. In a nearby bakery\n"
-                                "Your choice: "))
-
-                # choice tree 1 bakery 3 box 2
-
-                if x == 1:  # Tree
-                    # (play tree getting struck by lightning anim) Struck by lightning and die (cut to game over screen)
-                    choice_to_start = float(input("You were struck by lightning and died.\n"
-                                                  "Would you like to restart?\n"
-                                                  "1. Yes\n"
-                                                  "2. No\n"
-                                                  "Your choice: "))
-
-                    if choice_to_start == 1:    # restart option
-
-                        start()
-
-                    else:
-
-                        return
-
-                if x == 2:  # Box
-                    # (Cut to picture of sad cat in a box on the side of the road) (fade to black)
-                    # (then fade to closed box with flies on it)
-                    # Get wet and get a fever/hypothermia and die (cut to game over screen)
-                    choice_to_start = float(input("You got wet and developed a fever. You then died of hypothermia.\n"
-                                                  "Would you like to restart?\n"
-                                                  "1. Yes\n"
-                                                  "2. No\n"
-                                                  "Your choice: "))
-
-                    if choice_to_start == 1:    # restart option
-
-                        start()
-
-                    else:
-
-                        return
-
-                if x == 3:     # Bakery
-                    # (cut to picture of cat outside bakery)
-                    x = float(input("You have entered the bakery and are hungry.\n"
-                                    "What will you do?\n"
-                                    "1. Look for the baker\n"
-                                    "2. Steal some food\n"
-                                    "Your choice: "))
-
-                    # choice look for baker 1 steal food 2
-
-                    if x == 2:  # Steal
-
-                        choice_to_start = float(input("The baker caught you trying to steal his food!\n"
-                                                      "He sent you back to the pet store.\n"
-                                                      "Would you like to restart?\n"
-                                                      "1. Yes\n"
-                                                      "2. No\n"
-                                                      "Your choice: "))
-
-                        if choice_to_start == 1:    # restart option
-
-                            start()
-
-                        else:
-
-                            return
-
-                    if x == 1:   # Look for baker
-
-                        x = float(input("The baker offers to give you a shower.\n"
-                                        "1. Accept\n"
-                                        "2. Refuse\n"
-                                        "Your choice: "))
-
-                        # choice shower 1 refuse and scratch 2
-
-                        if x == 2:  # Refuse
-
-                            choice_to_start = float(input("The baker is angry and kills you.\n"
-                                                          "Would you like to restart?\n"
-                                                          "1. Yes\n"
-                                                          "2. No\n"
-                                                          "Your choice: "))
-
-                            if choice_to_start == 1:    # Restart option
-
-                                start()
-
-                            else:
-
-                                return
-
-                        if x == 1:   # Accept
-
-                            x = float(input("After your shower, it is dark and the baker goes to sleep.\n"
-                                            "You have three choices:\n"
-                                            "1. Stay with the baker\n"
-                                            "2. Attack the baker in his sleep\n"
-                                            "3. Runaway while the baker sleeps\n"
-                                            "Your choice: "))
-
-                            # choice runaway 3 attack 2 stay 1
-
-                            if x == 1:  # Stay
-
-                                choice_to_start = float(input("The baker is evil and cooks you for dinner!\n"
-                                                              "Would you like to restart?\n"
-                                                              "1. Yes\n"
-                                                              "2. No\n"
-                                                              "Your choice: "))
-
-                                if choice_to_start == 1:
-
-                                    start()
-
-                                else:
-
-                                    return
-
-                            if x == 2:  # Attack
-                                choice_to_start = float(input("The baker fights back and throws you into a wall.\n"
-                                                              "Would you like to restart?\n"
-                                                              "1. Yes\n"
-                                                              "2. No\n"
-                                                              "Your choice: "))
-
-                                if choice_to_start == 1:
-
-                                    start()
-
-                                else:
-
-                                    return
-
-                            if x == 3:  # Runaway
-
-                                x = float(input("You have escaped and now have three choices:\n"
-                                                "1. Look for food\n"
-                                                "2. Search the city for people\n"
-                                                "3. Search the city for other cats\n"
-                                                "Your choice: "))
-
-                                # choice alley 1 human family 2 search for cats 3
-
-                                if x == 1:  # Food
-
-                                    print("alone")
-
-                                if x == 2:   # People
-
-                                    print("find family")
-
-                                if x == 3:   # Cats
-
-                                    print("cat family")
-
-start()
+# display setup
+width, height = 1500, 1042
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Feline Fiasco")
+
+# colors
+text_color = pygame.Color('white')
+
+# game states
+states = {
+    'beginning': {
+        'text': 'Welcome to Feline Fiasco!\n'
+                'Your goal is to escape the pet store\n'
+                'and make choices from there to determine your new life.\n'
+                'Make good choices and good luck!\n',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Do not steal', 'next_state': 'choose_again'}
+        ]
+    },
+
+    'choose_again': {
+        'text': 'Choose again:',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Do not steal', 'next_state': 'choose_again'}
+        ]
+    },
+
+    'open': {
+        'text': 'Now choose "open" to use the key and unlock your cage:',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Open', 'next_state': 'open_door'},
+            {'text': 'Do not open', 'next_state': 'choose_again1'}
+        ]
+    },
+
+    'choose_again1': {
+        'text': 'Choose again:',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Open', 'next_state': 'open'},
+            {'text': 'Do not open', 'next_state': 'choose_again1'}
+        ]
+    },
+
+    'open_door': {
+        'text': 'You now must choose how to escape:',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Backdoor', 'next_state': 'backdoor'},
+            {'text': 'Vent', 'next_state': 'vent'},
+            {'text': 'Frontdoor', 'next_state': 'frontdoor'}
+        ]
+    },
+
+    'backdoor': {
+        'text': 'You got hit by a car trying to cross the street.\n'
+                'Would you like to restart?\n'
+                '(If no, type 2)',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'frontdoor': {
+        'text': 'The petstore dude caught u\n'
+                'Would you like to restart?\n'
+                '(If no, type 2)',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'vent': {
+        'text': 'You have escaped!\n'
+                'You have two options to choose:',
+        'image': 'Cat_In_Vent.png',
+        'options': [
+            {'text': 'Get on the train', 'next_state': 'train'},
+            {'text': 'Cross the street', 'next_state': 'street'},
+        ]
+    },
+
+    'street': {
+        'text': 'Hit by car. Would restart? (choose 2 to quit)',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'train': {
+        'text': 'train stops and u get off. choose what to do',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Exit the subway to the city', 'next_state': 'exit'},
+            {'text': 'Explore the platform', 'next_state': 'explore'},
+        ]
+    },
+
+    'explore': {
+        'text': 'slip on banana peel and die.',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'exit': {
+        'text': 'storming outside. seek shelter',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Under a tree', 'next_state': 'tree'},
+            {'text': 'Nearby bakery', 'next_state': 'bakery'},
+            {'text': 'In a box', 'next_state': 'box'}
+        ]
+    },
+
+    'tree': {
+        'text': 'restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'box': {
+        'text': 'Restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'bakery': {
+        'text': 'entered bakery and are hungry.',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Steal some food', 'next_state': 'steal_food'},
+            {'text': 'Look for baker', 'next_state': 'look'},
+        ]
+    },
+
+    'steal_food': {
+        'text': 'Restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'look': {
+        'text': 'Baker offers to give u a shower',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Accept', 'next_state': 'accept'},
+            {'text': 'Refuse', 'next_state': 'refuse'},
+        ]
+    },
+
+    'refuse': {
+        'text': 'restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'accept': {
+        'text': 'After shower baker sleeps. U have three choices:',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Stay with the baker', 'next_state': 'stay'},
+            {'text': 'Attack the baker in his sleep', 'next_state': 'attack'},
+            {'text': 'Runaway while the baker sleeps', 'next_state': 'runaway'}
+        ]
+    },
+
+    'stay': {
+        'text': 'restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'attack': {
+        'text': 'restart?',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'runaway': {
+        'text': 'You have escaped and now have three choices',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Look for food', 'next_state': 'food'},
+            {'text': 'Search the street for people', 'next_state': 'people'},
+            {'text': 'Search the street for other cats', 'next_state': 'cats'}
+        ]
+    },
+
+    'food': {
+        'text': 'alone',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'people': {
+        'text': 'people',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'cats': {
+        'text': 'cats',
+        'image': 'CarCrash.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+}
+
+# Set initial game state
+current_state = 'beginning'
+
+# Load images
+images = {}
+for state in states:
+    image_filename = states[state]['image']
+    image = pygame.image.load(image_filename).convert()
+    images[state] = image
+
+# Game loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_1:
+                option_index = 0
+            elif event.key == pygame.K_2:
+                option_index = 1
+            elif event.key == pygame.K_3:
+                option_index = 2
+            else:
+                continue
+
+            # Transition to the next state based on the chosen option
+            next_state = states[current_state]['options'][option_index]['next_state']
+            current_state = next_state
+
+    # Display the image for the current state
+    state_image = images[current_state]
+    screen.blit(state_image, (0, 0))
+
+    # Render the current state's text
+    state_text = states[current_state]['text']
+    font = pygame.font.Font(None, 32)
+    text_surface = font.render(state_text, True, text_color)
+    text_rect = text_surface.get_rect(center=(width // 2, height // 2))
+    screen.blit(text_surface, text_rect)
+
+    # Render the current state's options
+    option_y = height // 2 + 50
+    for i, option in enumerate(states[current_state]['options']):
+        option_text = f"{i + 1}. {option['text']}"
+        option_surface = font.render(option_text, True, text_color)
+        option_rect = option_surface.get_rect(center=(width // 2, option_y))
+        screen.blit(option_surface, option_rect)
+        option_y += 30
+
+    # Update the display
+    pygame.display.flip()
