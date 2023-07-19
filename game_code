@@ -1,6 +1,38 @@
-def start():
+import pygame
 
+from pygame.locals import *
+
+pygame.init()
+
+
+def start():
+    width, height = 1500, 1042
+
+    screen = pygame.display.set_mode((width, height))
     # background
+    image = pygame.image.load("GamePage.png")
+    image_rect = image.get_rect()
+
+    image_rect.center = (width // 2, height // 2)
+
+    running = True
+
+    while running:
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                running = False
+
+        screen.fill((0, 0, 0))  # Clear the screen
+
+        screen.blit(image, image_rect)  # Blit the image onto the screen
+
+        pygame.display.flip()  # Update the display
+
+    pygame.quit()
+
+
     # insert cover page here
 
     print("\nWelcome to Feline Fiasco!\n"
@@ -50,7 +82,7 @@ def start():
             return
 
     if x == 3:  # Frontdoor
-        # ( Cut to Background of a pet store with 
+        # ( Cut to Background of a pet store with
         # the pet store owner yelling at Miso telling him to get back in his cage)
         # (play grabbing hand animation)(play whoosh sound with anim)
         # Caught by pet store owner ( Relocated to cage (restart) )
@@ -280,6 +312,5 @@ def start():
                                 if x == 3:   # Cats
 
                                     print("cat family")
-
 
 start()
