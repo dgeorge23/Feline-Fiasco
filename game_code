@@ -1,0 +1,285 @@
+def start():
+
+    # background
+    # insert cover page here
+
+    print("\nWelcome to Feline Fiasco!\n"
+          "Your goal is to escape the pet store\n"
+          "and make choices from there to determine your new life.\n"
+          "Make good choices and good luck!\n")
+
+    # switch to pet store background
+    user = input("Type 'steal' to take the key to your cage from the store owner: ")
+
+    while user != 'steal':
+        user = input("Type 'steal' to take the key to your cage from the store owner: ")
+        if user == 'steal':
+            print("success")
+            # pygame.image.load(steal)
+            # play cat paw stealing animation
+            # switch to black cat in cage screen
+
+    user = input("Now type 'open' to use the key and unlock your cage: ")
+
+    while user != 'open':
+        user = input("Now type 'open' to use the key and unlock your cage: ")
+        # (black background) (play door unlock sound with anim) (cat paw animation unlocking cage door )
+        # (Background of a black cat in a cage with an unlocked door )
+
+    # choose front door recap 1 vent 2 backdoor die 3
+
+    x = float(input("You now must chose which way to escape!\n"
+                    "1. Backdoor\n"
+                    "2. Vent\n"
+                    "3. Frontdoor\n"
+                    "Your choice: "))
+
+    if x == 1:  # Backdoor
+        # (cuts to  Background of an alleyway with the alley cat telling Miso that he shouldn’t have come out here)
+        # Leads to getting mauled by back alley cat (play scratch animation) (play scratch sound with anim)
+        # (Immediate loss (cut to game over screen ) )
+        choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
+                                      "Would you like to restart?\n"
+                                      "1. Yes\n"
+                                      "2. No\n"
+                                      "Your choice: "))
+        # restart option
+        if choice_to_start == 1:
+            start()
+        else:
+            return
+
+    if x == 3:  # Frontdoor
+        # ( Cut to Background of a pet store with 
+        # the pet store owner yelling at Miso telling him to get back in his cage)
+        # (play grabbing hand animation)(play whoosh sound with anim)
+        # Caught by pet store owner ( Relocated to cage (restart) )
+        choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
+                                      "Would you like to restart?\n"
+                                      "1. Yes\n"
+                                      "2. No\n"
+                                      "Your choice: "))
+        # restart option
+        if choice_to_start == 1:
+            start()
+        else:
+            return
+
+    if x == 2:  # Vent
+        # Progress further ( cut to background of black cat in tunnel )
+        # (play metal stepping sounds with pic) cuts to (background outside the pet store) (cue birds chirping)
+
+        x = float(input("You have escaped! You have two options to choose:\n"
+                        "1. Get on the train\n"
+                        "2. Cross the street\n"
+                        "Your choice: "))
+
+        # choice: train 1 street 2
+
+        if x == 2:  # Street
+            # Play car driving and boom animation into cat (Play car crash audio with anim)
+            choice_to_start = float(input("You got hit by a car trying to cross the street.\n"
+                                          "Would you like to restart?\n"
+                                          "1. Yes\n"
+                                          "2. No\n"
+                                          "Your choice: "))
+
+            if choice_to_start == 1:    # restart
+
+                start()
+
+            else:   # end
+
+                return
+
+        if x == 1:  # Train
+            # (Train chugging animation) (play train horn with anim)
+            x = float(input("The train has stopped at a station and you get off.\n"
+                            "You can now exit the subway or explore the platform:\n"
+                            "1. Exit the subway to the city\n"
+                            "2. Explore the platform\n"
+                            "Your choice: "))
+
+            # choice exit 1 explore 2
+
+            if x == 2:  # Explore
+                # Slips on banana peel and falls into tracks
+                # (play cat slipping on banana peel anim (play slipping on peel noise)
+                # and falling down anim (falling down noise) ) electrocuted (play electrocution noise)
+                choice_to_start = float(input("You slipped on a banana peel and fell into the tracks.\n"
+                                              "You were electrocuted and died.\n"
+                                              "Would you like to restart?\n"
+                                              "1. Yes\n"
+                                              "2. No\n"
+                                              "Your choice: "))
+
+                if choice_to_start == 1:    # restart option
+
+                    start()
+
+                else:
+
+                    return
+
+            if x == 1:  # Exit
+                # ( play cat walking upstairs anim ) ( stepping noises with anim)
+                x = float(input("It is storming outside. Seek shelter:\n"
+                                "1. Under a tree\n"
+                                "2. In a box\n"
+                                "3. In a nearby bakery\n"
+                                "Your choice: "))
+
+                # choice tree 1 bakery 3 box 2
+
+                if x == 1:  # Tree
+                    # (play tree getting struck by lightning anim) Struck by lightning and die (cut to game over screen)
+                    choice_to_start = float(input("You were struck by lightning and died.\n"
+                                                  "Would you like to restart?\n"
+                                                  "1. Yes\n"
+                                                  "2. No\n"
+                                                  "Your choice: "))
+
+                    if choice_to_start == 1:    # restart option
+
+                        start()
+
+                    else:
+
+                        return
+
+                if x == 2:  # Box
+                    # (Cut to picture of sad cat in a box on the side of the road) (fade to black)
+                    # (then fade to closed box with flies on it)
+                    # Get wet and get a fever/hypothermia and die (cut to game over screen)
+                    choice_to_start = float(input("You got wet and developed a fever. You then died of hypothermia.\n"
+                                                  "Would you like to restart?\n"
+                                                  "1. Yes\n"
+                                                  "2. No\n"
+                                                  "Your choice: "))
+
+                    if choice_to_start == 1:    # restart option
+
+                        start()
+
+                    else:
+
+                        return
+
+                if x == 3:     # Bakery
+                    # (cut to picture of cat outside bakery)
+                    x = float(input("You have entered the bakery and are hungry.\n"
+                                    "What will you do?\n"
+                                    "1. Look for the baker\n"
+                                    "2. Steal some food\n"
+                                    "Your choice: "))
+
+                    # choice look for baker 1 steal food 2
+
+                    if x == 2:  # Steal
+
+                        choice_to_start = float(input("The baker caught you trying to steal his food!\n"
+                                                      "He sent you back to the pet store.\n"
+                                                      "Would you like to restart?\n"
+                                                      "1. Yes\n"
+                                                      "2. No\n"
+                                                      "Your choice: "))
+
+                        if choice_to_start == 1:    # restart option
+
+                            start()
+
+                        else:
+
+                            return
+
+                    if x == 1:   # Look for baker
+
+                        x = float(input("The baker offers to give you a shower.\n"
+                                        "1. Accept\n"
+                                        "2. Refuse\n"
+                                        "Your choice: "))
+
+                        # choice shower 1 refuse and scratch 2
+
+                        if x == 2:  # Refuse
+
+                            choice_to_start = float(input("The baker is angry and kills you.\n"
+                                                          "Would you like to restart?\n"
+                                                          "1. Yes\n"
+                                                          "2. No\n"
+                                                          "Your choice: "))
+
+                            if choice_to_start == 1:    # Restart option
+
+                                start()
+
+                            else:
+
+                                return
+
+                        if x == 1:   # Accept
+
+                            x = float(input("After your shower, it is dark and the baker goes to sleep.\n"
+                                            "You have three choices:\n"
+                                            "1. Stay with the baker\n"
+                                            "2. Attack the baker in his sleep\n"
+                                            "3. Runaway while the baker sleeps\n"
+                                            "Your choice: "))
+
+                            # choice runaway 3 attack 2 stay 1
+
+                            if x == 1:  # Stay
+
+                                choice_to_start = float(input("The baker is evil and cooks you for dinner!\n"
+                                                              "Would you like to restart?\n"
+                                                              "1. Yes\n"
+                                                              "2. No\n"
+                                                              "Your choice: "))
+
+                                if choice_to_start == 1:
+
+                                    start()
+
+                                else:
+
+                                    return
+
+                            if x == 2:  # Attack
+                                choice_to_start = float(input("The baker fights back and throws you into a wall.\n"
+                                                              "Would you like to restart?\n"
+                                                              "1. Yes\n"
+                                                              "2. No\n"
+                                                              "Your choice: "))
+
+                                if choice_to_start == 1:
+
+                                    start()
+
+                                else:
+
+                                    return
+
+                            if x == 3:  # Runaway
+
+                                x = float(input("You have escaped and now have three choices:\n"
+                                                "1. Look for food\n"
+                                                "2. Search the city for people\n"
+                                                "3. Search the city for other cats\n"
+                                                "Your choice: "))
+
+                                # choice alley 1 human family 2 search for cats 3
+
+                                if x == 1:  # Food
+
+                                    print("alone")
+
+                                if x == 2:   # People
+
+                                    print("find family")
+
+                                if x == 3:   # Cats
+
+                                    print("cat family")
+
+
+start()
