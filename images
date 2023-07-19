@@ -1,0 +1,56 @@
+import pygame
+
+# Initialize Pygame
+pygame.init()
+
+from pygame.locals import *
+
+pygame.init()
+
+width, height = 800, 600
+
+screen = pygame.display.set_mode((width, height))
+
+image = pygame.image.load("CarCrash.gif")
+
+font = pygame.font.Font(None, 36)  # You can specify the font and size here
+
+text = font.render("Your text here", True, (255, 255, 255))  # Specify the text, antialiasing, and color
+
+image_rect = image.get_rect()
+
+image_rect.center = (width // 2, height // 2)
+
+
+
+text_rect = text.get_rect()
+
+text_rect.center = (width // 2, height // 2 + 200)
+
+
+
+running = True
+
+while running:
+
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+
+            running = False
+
+
+
+    screen.fill((0, 0, 0))  # Clear the screen
+
+    screen.blit(image, image_rect)  # Blit the image onto the screen
+
+    screen.blit(text, text_rect)  # Blit the text onto the screen
+
+
+
+    pygame.display.flip()  # Update the display
+
+
+
+pygame.quit()
