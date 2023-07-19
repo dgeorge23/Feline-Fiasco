@@ -5,8 +5,8 @@ import sys
 pygame.init()
 
 # Set up the display
-WIDTH = 800
-HEIGHT = 600
+WIDTH, HEIGHT = 1500 , 1052
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Choose Your Own Adventure")
 
@@ -17,23 +17,31 @@ WHITE = pygame.Color('white')
 # Define game states
 states = {
     'start': {
-        'text': 'You wake up in a dark room. What do you do?',
+        'text':'\nWelcome to Feline Fiasco!\n'
+            "Your goal is to escape the pet store\n"
+            "and make choices from there to determine your new life.\n"
+            'Make good choices and good luck!\n'
+            'Choose to steal the key to your cage from the store owner:\n'
         'image': 'GamePage.png',
         'options': [
-            {'text': 'Look around', 'next_state': 'look_around'},
-            {'text': 'Go back to sleep', 'next_state': 'sleep'}
+            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Don't steal', 'next_state': 'choose_again'}
         ]
     },
-    'look_around': {
-        'text': 'You see a door. What do you do?',
+    'open': {
+        'text': 'Now choose 'open' to use the key and unlock your cage:',
         'image': 'GamePage.png',
         'options': [
             {'text': 'Open the door', 'next_state': 'open_door'},
-            {'text': 'Stay in the room', 'next_state': 'stay_in_room'}
+            {'text': 'Stay in the cage', 'next_state': 'stay_in_cage'}
         ]
     },
     'open_door': {
-        'text': 'You open the door and find yourself in a magical garden. Congratulations!',
+        'text': 'You now must chose which way to escape!\n'
+                    '1. Backdoor\n'
+                    '2. Vent\n'
+                    '3. Frontdoor\n'
+                    'Your choice:',
         'image': 'Cat_Steal_Key (1).jpg',
         'options': [
             {'text': 'Play again', 'next_state': 'start'}
