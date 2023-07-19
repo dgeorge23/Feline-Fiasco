@@ -5,8 +5,8 @@ import sys
 pygame.init()
 
 # Set up the display
-WIDTH, HEIGHT = 1500 , 1052
-
+WIDTH = 800
+HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Choose Your Own Adventure")
 
@@ -17,46 +17,38 @@ WHITE = pygame.Color('white')
 # Define game states
 states = {
     'start': {
-        'text':'\nWelcome to Feline Fiasco!\n'
-            "Your goal is to escape the pet store\n"
-            "and make choices from there to determine your new life.\n"
-            'Make good choices and good luck!\n'
-            'Choose to steal the key to your cage from the store owner:\n'
-        'image': 'GamePage.png',
+        'text': 'You wake up in a dark room. What do you do?',
+        'image': 'start_image.jpg',
         'options': [
-            {'text': 'Steal', 'next_state': 'open'},
-            {'text': 'Don't steal', 'next_state': 'choose_again'}
+            {'text': 'Look around', 'next_state': 'look_around'},
+            {'text': 'Go back to sleep', 'next_state': 'sleep'}
         ]
     },
-    'open': {
-        'text': 'Now choose 'open' to use the key and unlock your cage:',
-        'image': 'GamePage.png',
+    'look_around': {
+        'text': 'You see a door. What do you do?',
+        'image': 'look_around_image.jpg',
         'options': [
             {'text': 'Open the door', 'next_state': 'open_door'},
-            {'text': 'Stay in the cage', 'next_state': 'stay_in_cage'}
+            {'text': 'Stay in the room', 'next_state': 'stay_in_room'}
         ]
     },
     'open_door': {
-        'text': 'You now must chose which way to escape!\n'
-                    '1. Backdoor\n'
-                    '2. Vent\n'
-                    '3. Frontdoor\n'
-                    'Your choice:',
-        'image': 'Cat_Steal_Key (1).jpg',
+        'text': 'You open the door and find yourself in a magical garden. Congratulations!',
+        'image': 'open_door_image.jpg',
         'options': [
             {'text': 'Play again', 'next_state': 'start'}
         ]
     },
     'stay_in_room': {
         'text': 'You stay in the room and the door disappears. You are trapped forever.',
-        'image': 'GamePage.png',
+        'image': 'stay_in_room_image.jpg',
         'options': [
             {'text': 'Play again', 'next_state': 'start'}
         ]
     },
     'sleep': {
         'text': 'You go back to sleep and never wake up again.',
-        'image': 'GamePage.png',
+        'image': 'sleep_image.jpg',
         'options': [
             {'text': 'Play again', 'next_state': 'start'}
         ]
@@ -67,14 +59,16 @@ states = {
 current_state = 'start'
 
 # Load images
-images = {}
-for state in states:
-    image_filename = states[state]['image']
-    image = pygame.image.load(image_filename).convert()
-    images[state] = image
+def load_images():
+    images = {}
+    for state in states:
+        image_filename = states[state]['image']
+        image = pygame.image.load(image_filename).convert()
+        images[state] = image
+    return images
 
-# Game loop
-while True:
+# Handle events
+def handle_events():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -82,38 +76,40 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_1:
-                option_index = 0
+                return 0
             elif event.key == pygame.K_2:
-                option_index = 1
-            else:
-                continue
+                return 1
+    return None
 
-            # Transition to the next state based on the chosen option
-            next_state = states[current_state]['options'][option_index]['next_state']
-            current_state = next_state
-
-    # Clear the screen
+# Render the game state
+def render_state(state, images):
     screen.fill(BLACK)
 
-    # Display the image for the current state
-    state_image = images[current_state]
+    state_image = images[state]['image']
     screen.blit(state_image, (0, 0))
 
-    # Render the current state's text
-    state_text = states[current_state]['text']
+    state_text = states[state]['text']
     font = pygame.font.Font(None, 32)
     text_surface = font.render(state_text, True, WHITE)
     text_rect = text_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2))
     screen.blit(text_surface, text_rect)
 
-    # Render the current state's options
     option_y = HEIGHT // 2 + 50
-    for i, option in enumerate(states[current_state]['options']):
+    for i, option in enumerate(states[state]['options']):
         option_text = f"{i + 1}. {option['text']}"
         option_surface = font.render(option_text, True, WHITE)
         option_rect = option_surface.get_rect(center=(WIDTH // 2, option_y))
         screen.blit(option_surface, option_rect)
         option_y += 30
 
-    # Update the display
     pygame.display.flip()
+
+# Game loop
+while True:
+    handle_events()
+
+    if option_index is not None:
+        next_state = states[current_state]['options'][option_index]['next_state']
+        current_state = next_state
+
+    render_state(current_state, images)
