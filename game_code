@@ -1,9 +1,11 @@
 import pygame
 import sys
+from pygame.locals import *
 from moviepy.editor import *
 
 # initialize
 pygame.init()
+pygame.mixer.init()
 
 # display setup
 width, height = 1500, 1042
@@ -276,6 +278,20 @@ for state in states:
     image = pygame.image.load(image_filename).convert()
     images[state] = image
 
+audio_files = {
+    'beginning': 'carcrashdeath.mp3',
+    'choose_again': 'catdrinkingmilk.mp3',
+    'open': 'cateating.mp3',
+    # Add other audio file paths for the corresponding states
+}
+
+# Load audio
+audio = {}
+for state in states:
+    audio_filename = audio_files.get(state)
+    if audio_filename:
+        audio[state] = pygame.mixer.Sound(audio_filename)
+
 # Game loop
 while True:
     for event in pygame.event.get():
@@ -297,7 +313,11 @@ while True:
             next_state = states[current_state]['options'][option_index]['next_state']
             current_state = next_state
 
-    screen.fill((0, 0, 0))
+            # Play audio for the current state
+            if current_state in audio:
+                audio[current_state].play()
+                print(f"Playing audio for state '{current_state}'")
+
     # Display the image for the current state
     state_image = images[current_state]
     screen.blit(state_image, (0, 0))
@@ -324,3 +344,4 @@ while True:
 
     # Update the display
     pygame.display.flip()
+    
