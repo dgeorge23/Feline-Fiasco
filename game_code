@@ -334,9 +334,11 @@ for state in states:
         images[image_filename] = image
 
 audio_files = {
-    'beginning': 'carcrashdeath.mp3',
-    'choose_again': 'catdrinkingmilk.mp3',
+    'beginning': '',
+    'steal1': 'swipe.mp3',
+    'open_door': '',
     'open': 'cateating.mp3',
+    'backdoor': '',
     # Add other audio file paths for the corresponding states
 }
 
