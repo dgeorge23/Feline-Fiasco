@@ -1,0 +1,338 @@
+import pygame
+import sys
+from pygame.locals import *
+from moviepy.editor import *
+
+# initialize
+pygame.init()
+pygame.mixer.init()
+
+# display setup
+width, height = 1500, 1042
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Feline Fiasco")
+
+# colors
+text_color = pygame.Color('white')
+
+# game states
+states = {
+    'beginning': {
+        'text': 'Welcome to Feline Fiasco! Your goal is to escape the pet store and make choices',
+        'text2': 'from there to determine your new life. Make good choices and good luck!',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Do not steal', 'next_state': 'choose_again'}
+        ]
+    },
+
+    'choose_again': {
+        'text': '',
+        'text2': 'Choose again',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Do not steal', 'next_state': 'choose_again'}
+        ]
+    },
+
+    'open': {
+        'text': '',
+        'text2': 'Now choose "open" to use the key and unlock your cage:',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Open', 'next_state': 'open_door'},
+            {'text': 'Do not open', 'next_state': 'choose_again1'}
+        ]
+    },
+
+    'choose_again1': {
+        'text': '',
+        'text2': 'Choose again',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Open', 'next_state': 'open_door'},
+            {'text': 'Do not open', 'next_state': 'choose_again1'}
+        ]
+    },
+
+    'open_door': {
+        'text': '',
+        'text2': 'You now must choose how to escape:',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Backdoor', 'next_state': 'backdoor'},
+            {'text': 'Vent', 'next_state': 'vent'},
+            {'text': 'Frontdoor', 'next_state': 'frontdoor'}
+        ]
+    },
+
+    'backdoor': {
+        'text': 'You got hit by a car trying to cross the street. Would you like to restart?',
+        'text2': '(If no, type 2)',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'frontdoor': {
+        'text': 'The petstore dude caught u'
+                'Would you like to restart?',
+        'text2': '(If no, type 2)',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'vent': {
+        'text': 'You have escaped!',
+        'text2': 'You have two options to choose:',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Get on the train', 'next_state': 'train'},
+            {'text': 'Cross the street', 'next_state': 'street'},
+        ]
+    },
+
+    'street': {
+        'text': 'Hit by car. Would restart? (choose 2 to quit)',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'train': {
+        'text': 'train stops and u get off. choose what to do',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Exit the subway to the city', 'next_state': 'exit'},
+            {'text': 'Explore the platform', 'next_state': 'explore'},
+        ]
+    },
+
+    'explore': {
+        'text': 'slip on banana peel and die.',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'exit': {
+        'text': 'storming outside. seek shelter',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Under a tree', 'next_state': 'tree'},
+            {'text': 'Nearby bakery', 'next_state': 'bakery'},
+            {'text': 'In a box', 'next_state': 'box'}
+        ]
+    },
+
+    'tree': {
+        'text': 'restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'box': {
+        'text': 'Restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'bakery': {
+        'text': 'entered bakery and are hungry.',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Steal some food', 'next_state': 'steal_food'},
+            {'text': 'Look for baker', 'next_state': 'look'},
+        ]
+    },
+
+    'steal_food': {
+        'text': 'Restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'look': {
+        'text': 'Baker offers to give u a shower',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Accept', 'next_state': 'accept'},
+            {'text': 'Refuse', 'next_state': 'refuse'},
+        ]
+    },
+
+    'refuse': {
+        'text': 'restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'accept': {
+        'text': 'After shower baker sleeps. U have three choices:',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Stay with the baker', 'next_state': 'stay'},
+            {'text': 'Attack the baker in his sleep', 'next_state': 'attack'},
+            {'text': 'Runaway while the baker sleeps', 'next_state': 'runaway'}
+        ]
+    },
+
+    'stay': {
+        'text': 'restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'attack': {
+        'text': 'restart?',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'runaway': {
+        'text': 'You have escaped and now have three choices',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Look for food', 'next_state': 'food'},
+            {'text': 'Search the street for people', 'next_state': 'people'},
+            {'text': 'Search the street for other cats', 'next_state': 'cats'}
+        ]
+    },
+
+    'food': {
+        'text': 'alone',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'people': {
+        'text': 'people',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+
+    'cats': {
+        'text': 'cats',
+        'text2': '',
+        'image': '1.gif',
+        'options': [
+            {'text': 'Restart', 'next_state': 'beginning'},
+        ]
+    },
+}
+
+# Set initial game state
+current_state = 'beginning'
+
+# Load images
+images = {}
+for state in states:
+    image_filename = states[state]['image']
+    image = pygame.image.load(image_filename).convert()
+    images[state] = image
+
+audio_files = {
+    'beginning': 'carcrashdeath.mp3',
+    'choose_again': 'catdrinkingmilk.mp3',
+    'open': 'cateating.mp3',
+    # Add other audio file paths for the corresponding states
+}
+
+# Load audio
+audio = {}
+for state in states:
+    audio_filename = audio_files.get(state)
+    if audio_filename:
+        audio[state] = pygame.mixer.Sound(audio_filename)
+
+# Game loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_1:
+                option_index = 0
+            elif event.key == pygame.K_2:
+                option_index = 1
+            elif event.key == pygame.K_3:
+                option_index = 2
+            else:
+                continue
+
+            # Transition to the next state based on the chosen option
+            next_state = states[current_state]['options'][option_index]['next_state']
+            current_state = next_state
+
+            # Play audio for the current state
+            if current_state in audio:
+                audio[current_state].play()
+                print(f"Playing audio for state '{current_state}'")
+
+    # Display the image for the current state
+    state_image = images[current_state]
+    screen.blit(state_image, (0, 0))
+
+    # Render the current state's text
+    state_text = states[current_state]['text']
+    state_text2 = states[current_state]['text2']
+    font = pygame.font.Font(None, 32)
+    text_surface = font.render(state_text, True, text_color)
+    text2_surface = font.render(state_text2, True, text_color)
+    text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 260))
+    text2_rect = text2_surface.get_rect(center=(width // 2, height // 2 + 300))
+    screen.blit(text_surface, text_rect)
+    screen.blit(text2_surface, text2_rect)
+
+    # Render the current state's options
+    option_y = height // 2 + 350
+    for i, option in enumerate(states[current_state]['options']):
+        option_text = f"{i + 1}. {option['text']}"
+        option_surface = font.render(option_text, True, text_color)
+        option_rect = option_surface.get_rect(center=(width // 2, option_y))
+        screen.blit(option_surface, option_rect)
+        option_y += 30
+
+    # Update the display
+    pygame.display.flip()
