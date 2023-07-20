@@ -1,0 +1,43 @@
+import pygame
+from moviepy.editor import *
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the game window
+window_width = 800
+window_height = 600
+window = pygame.display.set_mode((window_width, window_height))
+pygame.display.set_caption("GIF Player")
+
+# Set up the game clock
+clock = pygame.time.Clock()
+
+def play_gif(gif_filename):
+    clip = VideoFileClip(gif_filename)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # Clear the screen
+        window.fill((0, 0, 0))
+
+        # Display the current frame
+        current_frame = clip.get_frame(pygame.time.get_ticks() / 1000)
+        frame_surface = pygame.surfarray.make_surface(current_frame)
+        window.blit(frame_surface, (0, 0))
+
+        # Update the display
+        pygame.display.flip()
+
+        # Limit the frame rate
+        clock.tick(clip.fps)
+
+    pygame.quit()
+
+# Call the function to play the GIF
+gif_filename = "1.gif"  # Replace with your actual GIF file name
+play_gif(gif_filename)
