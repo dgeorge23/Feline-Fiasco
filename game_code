@@ -1,11 +1,11 @@
+import re
 import pygame
 import sys
-from pygame.locals import *
-from moviepy.editor import *
+from PIL import Image
+import time
 
 # initialize
 pygame.init()
-pygame.mixer.init()
 
 # display setup
 width, height = 1500, 1042
@@ -14,6 +14,46 @@ pygame.display.set_caption("Feline Fiasco")
 
 # colors
 text_color = pygame.Color('white')
+
+class PygameGIF:
+    def __init__(self, filepath) -> None:
+        self.filepath = filepath
+
+        self.gif = Image.open(filepath)
+
+        self.frames = []
+        for frame in range(self.gif.n_frames):
+            self.gif.seek(frame)
+            if frame == 0:
+                if "duration" in self.gif.info:
+                    self.frames.append([pygame.image.load(filepath), self.gif.info["duration"]*.001])
+                else:
+                    self.frames.append([pygame.image.load(filepath), 1])
+            else:
+                self.frames.append([pygame.image.fromstring(self.gif.tobytes(), self.gif.size, self.gif.mode), self.gif.info["duration"]*.001])
+
+        self.gif.close()
+        self.frame = 0
+        self.frame_time = 0
+        self.paused_time = 0
+        self.paused = False
+
+
+    def _animate(self):
+        if self.frame_time == 0:
+            self.frame_time = time.time()
+
+        if time.time()-self.frame_time >= self.frames[self.frame][1] and not self.paused:
+            self.frame = self.frame + 1 if self.frame < self.gif.n_frames-1 else 0
+            self.frame_time = time.time()
+
+    def render(self, surface: pygame.Surface) -> None:
+        self._animate()
+        surface.blit(self.frames[self.frame][0], (0, 0))
+
+def loadGIF(filepath) -> PygameGIF:
+    return PygameGIF(filepath)
+
 
 # game states
 states = {
@@ -29,9 +69,9 @@ states = {
     'steal': {
         'text': 'To escape your cage, you need the key.',
         'text2': 'Will you steal it from the pet store owner?',
-        'image': 'Miso_Lightning.png',
+        'image': 'cagedCat.gif',
         'options': [
-            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Steal', 'next_state': 'steal1'},
             {'text': 'Do not steal', 'next_state': 'choose_again'}
         ]
     },
@@ -39,17 +79,26 @@ states = {
     'choose_again': {
         'text': '',
         'text2': 'Choose again',
-        'image': 'Miso_Lightning.png',
+        'image': 'cagedCat.gif',
         'options': [
-            {'text': 'Steal', 'next_state': 'open'},
+            {'text': 'Steal', 'next_state': 'steal1'},
             {'text': 'Do not steal', 'next_state': 'choose_again'}
+        ]
+    },
+
+    'steal1': {
+        'text': '',
+        'text2': '',
+        'image': 'Cat_Steal_Key.gif',
+        'options': [
+            {'text': 'Continue', 'next_state': 'open'},
         ]
     },
 
     'open': {
         'text': '',
         'text2': 'Now choose "open" to use the key and unlock your cage:',
-        'image': 'Miso_Lightning.png',
+        'image': 'cagedCat.gif',
         'options': [
             {'text': 'Open', 'next_state': 'open_door'},
             {'text': 'Do not open', 'next_state': 'choose_again1'}
@@ -59,7 +108,7 @@ states = {
     'choose_again1': {
         'text': '',
         'text2': 'Choose again',
-        'image': 'Miso_Lightning.png',
+        'image': 'cagedCat.gif',
         'options': [
             {'text': 'Open', 'next_state': 'open_door'},
             {'text': 'Do not open', 'next_state': 'choose_again1'}
@@ -69,7 +118,7 @@ states = {
     'open_door': {
         'text': '',
         'text2': 'Now choose how to escape the pet store:',
-        'image': 'Miso_Lightning.png',
+        'image': 'FreeCat.gif',
         'options': [
             {'text': 'Backdoor', 'next_state': 'backdoor'},
             {'text': 'Vent', 'next_state': 'vent'},
@@ -80,7 +129,7 @@ states = {
     'backdoor': {
         'text': 'You were mauled by Sam, the alley cat and died. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'V2backalleycat.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -194,7 +243,7 @@ states = {
     'refuse': {
         'text': 'The baker is angered and kills you. (He is a psychopath) Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'ANGRYchefspeakinganifordialogue(2).gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -275,8 +324,14 @@ current_state = 'beginning'
 images = {}
 for state in states:
     image_filename = states[state]['image']
-    image = pygame.image.load(image_filename).convert()
-    images[state] = image
+    if re.match(r'\w*.gif$', image_filename):
+        # prevent duplicate loading for same gif
+        if not image_filename in images.keys():
+            image = loadGIF(image_filename)
+            images[image_filename] = image
+    else:
+        image = pygame.image.load(image_filename).convert()
+        images[image_filename] = image
 
 audio_files = {
     'beginning': 'carcrashdeath.mp3',
@@ -319,8 +374,12 @@ while True:
                 print(f"Playing audio for state '{current_state}'")
 
     # Display the image for the current state
-    state_image = images[current_state]
-    screen.blit(state_image, (0, 0))
+    image_filename = states[current_state]['image']
+    state_image = images[image_filename]
+    if type(state_image) is PygameGIF:
+        state_image.render(screen)
+    else:
+        screen.blit(state_image, (0, 0))
 
     # Render the current state's text
     state_text = states[current_state]['text']
@@ -344,4 +403,3 @@ while True:
 
     # Update the display
     pygame.display.flip()
-    
