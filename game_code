@@ -1,5 +1,6 @@
 import pygame
 import sys
+from moviepy.editor import *
 
 # initialize
 pygame.init()
@@ -15,10 +16,8 @@ text_color = pygame.Color('white')
 # game states
 states = {
     'beginning': {
-        'text': 'Welcome to Feline Fiasco!\n'
-                'Your goal is to escape the pet store\n'
-                'and make choices from there to determine your new life.\n'
-                'Make good choices and good luck!\n',
+        'text': 'Welcome to Feline Fiasco! Your goal is to escape the pet store and make choices',
+        'text2': 'from there to determine your new life. Make good choices and good luck!',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Steal', 'next_state': 'open'},
@@ -27,7 +26,8 @@ states = {
     },
 
     'choose_again': {
-        'text': 'Choose again:',
+        'text': '',
+        'text2': 'Choose again',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Steal', 'next_state': 'open'},
@@ -36,7 +36,8 @@ states = {
     },
 
     'open': {
-        'text': 'Now choose "open" to use the key and unlock your cage:',
+        'text': '',
+        'text2': 'Now choose "open" to use the key and unlock your cage:',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Open', 'next_state': 'open_door'},
@@ -45,16 +46,18 @@ states = {
     },
 
     'choose_again1': {
-        'text': 'Choose again:',
+        'text': '',
+        'text2': 'Choose again',
         'image': 'CarCrash.gif',
         'options': [
-            {'text': 'Open', 'next_state': 'open'},
+            {'text': 'Open', 'next_state': 'open_door'},
             {'text': 'Do not open', 'next_state': 'choose_again1'}
         ]
     },
 
     'open_door': {
-        'text': 'You now must choose how to escape:',
+        'text': '',
+        'text2': 'You now must choose how to escape:',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Backdoor', 'next_state': 'backdoor'},
@@ -64,9 +67,8 @@ states = {
     },
 
     'backdoor': {
-        'text': 'You got hit by a car trying to cross the street.\n'
-                'Would you like to restart?\n'
-                '(If no, type 2)',
+        'text': 'You got hit by a car trying to cross the street. Would you like to restart?',
+        'text2': '(If no, type 2)',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -74,9 +76,9 @@ states = {
     },
 
     'frontdoor': {
-        'text': 'The petstore dude caught u\n'
-                'Would you like to restart?\n'
-                '(If no, type 2)',
+        'text': 'The petstore dude caught u'
+                'Would you like to restart?',
+        'text2': '(If no, type 2)',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -84,8 +86,8 @@ states = {
     },
 
     'vent': {
-        'text': 'You have escaped!\n'
-                'You have two options to choose:',
+        'text': 'You have escaped!',
+        'text2': 'You have two options to choose:',
         'image': 'Cat_In_Vent.png',
         'options': [
             {'text': 'Get on the train', 'next_state': 'train'},
@@ -95,6 +97,7 @@ states = {
 
     'street': {
         'text': 'Hit by car. Would restart? (choose 2 to quit)',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -103,6 +106,7 @@ states = {
 
     'train': {
         'text': 'train stops and u get off. choose what to do',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Exit the subway to the city', 'next_state': 'exit'},
@@ -112,6 +116,7 @@ states = {
 
     'explore': {
         'text': 'slip on banana peel and die.',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -120,6 +125,7 @@ states = {
 
     'exit': {
         'text': 'storming outside. seek shelter',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Under a tree', 'next_state': 'tree'},
@@ -130,6 +136,7 @@ states = {
 
     'tree': {
         'text': 'restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -138,6 +145,7 @@ states = {
 
     'box': {
         'text': 'Restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -146,6 +154,7 @@ states = {
 
     'bakery': {
         'text': 'entered bakery and are hungry.',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Steal some food', 'next_state': 'steal_food'},
@@ -155,6 +164,7 @@ states = {
 
     'steal_food': {
         'text': 'Restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -163,6 +173,7 @@ states = {
 
     'look': {
         'text': 'Baker offers to give u a shower',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Accept', 'next_state': 'accept'},
@@ -172,6 +183,7 @@ states = {
 
     'refuse': {
         'text': 'restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -180,6 +192,7 @@ states = {
 
     'accept': {
         'text': 'After shower baker sleeps. U have three choices:',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Stay with the baker', 'next_state': 'stay'},
@@ -190,6 +203,7 @@ states = {
 
     'stay': {
         'text': 'restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -198,6 +212,7 @@ states = {
 
     'attack': {
         'text': 'restart?',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -206,6 +221,7 @@ states = {
 
     'runaway': {
         'text': 'You have escaped and now have three choices',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Look for food', 'next_state': 'food'},
@@ -216,6 +232,7 @@ states = {
 
     'food': {
         'text': 'alone',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -224,6 +241,7 @@ states = {
 
     'people': {
         'text': 'people',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -232,6 +250,7 @@ states = {
 
     'cats': {
         'text': 'cats',
+        'text2': '',
         'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
@@ -276,13 +295,17 @@ while True:
 
     # Render the current state's text
     state_text = states[current_state]['text']
+    state_text2 = states[current_state]['text2']
     font = pygame.font.Font(None, 32)
     text_surface = font.render(state_text, True, text_color)
-    text_rect = text_surface.get_rect(center=(width // 2, height // 2))
+    text2_surface = font.render(state_text2, True, text_color)
+    text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 260))
+    text2_rect = text2_surface.get_rect(center=(width // 2, height // 2 + 300))
     screen.blit(text_surface, text_rect)
+    screen.blit(text2_surface, text2_rect)
 
     # Render the current state's options
-    option_y = height // 2 + 50
+    option_y = height // 2 + 350
     for i, option in enumerate(states[current_state]['options']):
         option_text = f"{i + 1}. {option['text']}"
         option_surface = font.render(option_text, True, text_color)
