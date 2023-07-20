@@ -12,7 +12,7 @@ What is its purpose - escape the pet store and search for Miso's happy ending wh
 If it's a game, what is its goal and rules - use the number keys to make choices and stay out of danger
 How to "install" or set up your code. This may be as simple as cloning/downloading from github
 How to run the code (this should be running python main.py in the terminal - make sure your main python code file is called main.py)
-How to interact with the program - what inputs will it expect? what outputs should users look for?
+How to interact with the program - what inputs will it expect? what outputs should users look for? u
 Troubleshooting:
 Is it possible for anything to go wrong from the user's point of view? If so, what should they do about it
 Project Team member names
