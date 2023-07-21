@@ -346,7 +346,7 @@ states = {
     'people': {
         'text': 'You are found by a child and his family.',
         'text2': 'You live out the rest of your life loved by the family.',
-        'image': 'Miso_Lightning.png',
+        'image': 'GEPplFam.png',
         'options': [
             {'text': 'Restart?', 'next_state': 'beginning'},
         ]
@@ -355,7 +355,7 @@ states = {
     'cats': {
         'text': 'You found a cat named Pumpkin and raised a cat family together.',
         'text2': 'You live out the rest of your days surrounded by your cat family.',
-        'image': 'Miso_Lightning.png',
+        'image': 'GECatFam.png',
         'options': [
             {'text': 'Restart?', 'next_state': 'beginning'},
         ]
