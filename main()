@@ -339,7 +339,7 @@ states = {
         'text2': 'You live out the rest of your days alone living in an alleyway.',
         'image': 'MisoEatingAlley.png',
         'options': [
-            {'text': 'Restart?', 'next_state': 'beginning'},
+            {'text': 'Continue', 'next_state': 'endscreen'},
         ]
     },
 
@@ -348,7 +348,7 @@ states = {
         'text2': 'You live out the rest of your life loved by the family.',
         'image': 'GEPplFam.png',
         'options': [
-            {'text': 'Restart?', 'next_state': 'beginning'},
+            {'text': 'Continue', 'next_state': 'endscreen'},
         ]
     },
 
@@ -366,9 +366,18 @@ states = {
         'text2': 'You live out the rest of your days surrounded by your cat family.',
         'image': 'GECatFam.png',
         'options': [
-            {'text': 'Restart?', 'next_state': 'beginning'},
+            {'text': 'Continue', 'next_state': 'endscreen'},
         ]
     },
+
+    'endscreen': {
+        'text': 'THE END',
+        'text2': 'If you would like to play again, select 1, otherwise select 2:',
+        'image': 'Stars.png',
+        'options': [
+            {'text': 'Restart?', 'next_state': 'beginning'}
+        ]
+    }
 }
 
 # Set initial game state
