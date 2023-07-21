@@ -89,7 +89,7 @@ states = {
     'steal1': {
         'text': '',
         'text2': '',
-        'image': 'Cat_Steal_Key.gif',
+        'image': 'keygrabfixed.gif',
         'options': [
             {'text': 'Continue', 'next_state': 'open'},
         ]
@@ -127,9 +127,18 @@ states = {
     },
 
     'backdoor': {
+        'text': '',
+        'text2': 'You shouldn’t have come back here.',
+        'image': 'alleycatfordialogue.gif',
+        'options': [
+            {'text': 'Continue', 'next_state': 'backdoor1'},
+        ]
+    },
+
+    'backdoor1': {
         'text': 'You were mauled by Sam, the alley cat and died. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'V2backalleycat.gif',
+        'image': 'scratchdeath.png',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -137,8 +146,8 @@ states = {
 
     'frontdoor': {
         'text': 'You were caught by the pet store owner. Would you like to restart?',
-        'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'text2': '"(If no, type 2)"',
+        'image': 'handgrabrelocate.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -149,15 +158,24 @@ states = {
         'text2': 'How do you want to get around?',
         'image': 'Cat_In_Vent.png',
         'options': [
-            {'text': 'Get on the train', 'next_state': 'train'},
+            {'text': 'Get on the train', 'next_state': 'vent1'},
             {'text': 'Cross the street', 'next_state': 'street'},
+        ]
+    },
+
+    'vent1': {
+        'text': '',
+        'text2': '',
+        'image': 'misodownstairs.gif',
+        'options': [
+            {'text': 'Continue', 'next_state': 'train'},
         ]
     },
 
     'street': {
         'text': 'You were hit by a car crossing the street. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'CarCrash.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -166,7 +184,7 @@ states = {
     'train': {
         'text': 'The train has stopped and you get off.',
         'text2': 'What would you like to do?',
-        'image': 'Miso_Lightning.png',
+        'image': 'misoontrainplatform.gif',
         'options': [
             {'text': 'Exit the subway to the city', 'next_state': 'exit'},
             {'text': 'Explore the platform', 'next_state': 'explore'},
@@ -176,16 +194,25 @@ states = {
     'explore': {
         'text': 'You slipped on a banana peel and fell onto the train tracks. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'banansliappp.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
     },
 
     'exit': {
+        'text': '',
+        'text2': '',
+        'image': 'climbing_stairs.gif',
+        'options': [
+            {'text': 'Continue', 'next_state': 'exit1'},
+        ]
+    },
+
+    'exit1': {
         'text': 'You have exited the subway but it is storming.',
         'text2': 'What will you choose for shelter from the thunderstorm?',
-        'image': 'Miso_Lightning.png',
+        'image': 'misooutsidebakeryatnight.jpg',
         'options': [
             {'text': 'Under a tree', 'next_state': 'tree'},
             {'text': 'Nearby bakery', 'next_state': 'bakery'},
@@ -214,7 +241,7 @@ states = {
     'bakery': {
         'text': 'You have entered the bakery and are starving.',
         'text2': 'What do you do?',
-        'image': 'Miso_Lightning.png',
+        'image': 'MisoInsideBakery.png',
         'options': [
             {'text': 'Steal some food', 'next_state': 'steal_food'},
             {'text': 'Look for baker', 'next_state': 'look'},
@@ -224,16 +251,16 @@ states = {
     'steal_food': {
         'text': 'You are caught by the baker and he send you back to the store. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'handgrabrelocate.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
     },
 
     'look': {
-        'text': 'The baker takes pity on you and offers to give you a shower.',
+        'text': 'The baker takes pity on you, feeds you, and offers to give you a shower.',
         'text2': 'Will you accept or refuse?',
-        'image': 'Miso_Lightning.png',
+        'image': 'BakerFood.png',
         'options': [
             {'text': 'Accept', 'next_state': 'accept'},
             {'text': 'Refuse', 'next_state': 'refuse'},
@@ -243,7 +270,7 @@ states = {
     'refuse': {
         'text': 'The baker is angered and kills you. (He is a psychopath) Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'ANGRYchefspeakinganifordialogue(2).gif',
+        'image': 'Death.png',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -263,25 +290,43 @@ states = {
     'stay': {
         'text': 'The baker wants to eat you and cooks you into a bread. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'IMG_1572.png',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
     },
 
     'attack': {
+        'text': '',
+        'text2': '',
+        'image': 'CatAttack.png',
+        'options': [
+            {'text': 'Continue', 'next_state': 'attack1'},
+        ]
+    },
+
+    'attack1': {
         'text': 'The baker catches you attacking him and kills you. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'Death.png',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
     },
 
     'runaway': {
+        'text': '',
+        'text2': '',
+        'image': 'IMG_1573.png',
+        'options': [
+            {'text': 'Continue', 'next_state': 'runaway1'},
+        ]
+    },
+
+    'runaway1': {
         'text': 'You successfully escaped the bakery.',
         'text2': 'You now have three options:',
-        'image': 'Miso_Lightning.png',
+        'image': 'Miso walking before good ending.png',
         'options': [
             {'text': 'Look for food', 'next_state': 'food'},
             {'text': 'Search the street for people', 'next_state': 'people'},
@@ -337,8 +382,8 @@ audio_files = {
     'beginning': '',
     'steal1': 'swipe.mp3',
     'open_door': '',
-    'open': 'cateating.mp3',
-    'backdoor': '',
+    'open': '',
+    'backdoor1': 'scratchdeath.mp3',
     # Add other audio file paths for the corresponding states
 }
 
@@ -389,8 +434,8 @@ while True:
     font = pygame.font.Font(None, 32)
     text_surface = font.render(state_text, True, text_color)
     text2_surface = font.render(state_text2, True, text_color)
-    text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 260))
-    text2_rect = text2_surface.get_rect(center=(width // 2, height // 2 + 300))
+    text_rect = text_surface.get_rect(center=(width // 2, height // 2 + 280))
+    text2_rect = text2_surface.get_rect(center=(width // 2, height // 2 + 320))
     screen.blit(text_surface, text_rect)
     screen.blit(text2_surface, text2_rect)
 
@@ -405,3 +450,5 @@ while True:
 
     # Update the display
     pygame.display.flip()
+
+    screen.fill((0, 0, 0))
