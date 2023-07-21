@@ -15,6 +15,7 @@ pygame.display.set_caption("Feline Fiasco")
 # colors
 text_color = pygame.Color('white')
 
+
 class PygameGIF:
     def __init__(self, filepath) -> None:
         self.filepath = filepath
@@ -37,7 +38,6 @@ class PygameGIF:
         self.frame_time = 0
         self.paused_time = 0
         self.paused = False
-
 
     def _animate(self):
         if self.frame_time == 0:
@@ -232,7 +232,7 @@ states = {
     'box': {
         'text': 'You got hypothermia and died. Would you like to restart?',
         'text2': '(If no, type 2)',
-        'image': 'Miso_Lightning.png',
+        'image': 'sadcatinbox.gif',
         'options': [
             {'text': 'Restart', 'next_state': 'beginning'},
         ]
@@ -279,7 +279,7 @@ states = {
     'accept': {
         'text': 'You have had a shower and it is now midnight.',
         'text2': 'The baker is asleep. What do you do?',
-        'image': 'Miso_Lightning.png',
+        'image': 'misodecidinginbakery.gif',
         'options': [
             {'text': 'Stay with the baker', 'next_state': 'stay'},
             {'text': 'Attack the baker in his sleep', 'next_state': 'attack'},
@@ -337,7 +337,7 @@ states = {
     'food': {
         'text': 'You looked for food resulting in you not finding a family.',
         'text2': 'You live out the rest of your days alone living in an alleyway.',
-        'image': 'Miso_Lightning.png',
+        'image': 'MisoEatingAlley.png',
         'options': [
             {'text': 'Restart?', 'next_state': 'beginning'},
         ]
@@ -381,9 +381,15 @@ for state in states:
 audio_files = {
     'beginning': '',
     'steal1': 'swipe.mp3',
-    'open_door': '',
-    'open': '',
     'backdoor1': 'scratchdeath.mp3',
+    'frontdoor': 'whoosh-6316 (1).mp3',
+    'street': 'carcrashdeath.mp3',
+    'explore': 'bananapeelslipandthud.mp3',
+    'exit1': 'rainandthunder-[AudioTrimmer.com].mp3',
+    'tree': 'rainandthunder-[AudioTrimmer.com].mp3',
+    'box': 'flies-6330_GbxzPfdW.mp3',
+    'steal_food': 'whoosh-6316 (1).mp3',
+    'stay': 'ovendeath.mp3',
     # Add other audio file paths for the corresponding states
 }
 
