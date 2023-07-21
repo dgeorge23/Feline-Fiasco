@@ -212,7 +212,7 @@ states = {
     'exit1': {
         'text': 'You have exited the subway but it is storming.',
         'text2': 'What will you choose for shelter from the thunderstorm?',
-        'image': 'misooutsidebakeryatnight.jpg',
+        'image': 'misooutsidebakerypx.jpg',
         'options': [
             {'text': 'Under a tree', 'next_state': 'tree'},
             {'text': 'Nearby bakery', 'next_state': 'bakery'},
@@ -353,7 +353,16 @@ states = {
     },
 
     'cats': {
-        'text': 'You found a cat named Pumpkin and raised a cat family together.',
+        'text': 'You met a cat named Pumpkin.',
+        'text2': 'She invites you to dinner!',
+        'image': 'misomeetspumpkinfixed.gif',
+        'options': [
+            {'text': 'Continue', 'next_state': 'cats1'},
+        ]
+    },
+
+    'cats1': {
+        'text': 'You and Pumpkin fall in love and raise a family.',
         'text2': 'You live out the rest of your days surrounded by your cat family.',
         'image': 'GECatFam.png',
         'options': [
