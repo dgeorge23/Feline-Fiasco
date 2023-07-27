@@ -31,4 +31,4 @@ From the user's point of view, there might be a few things that could go wrong:
 5. Text Not Visible: If text is not visible alongside GIFs, users can check if there is an issue with the GIF files or if they are obstructing the text. They can also try resizing the window to see if it helps.
 
 Project Team member names:
-Diya George, Kaela Jia, Skylar Schulson, Rim A. Badaoui, Hanzhi Zuo
+D. George, K. Jia, S. Schulson, R. A. Badaoui, H. Zuo
